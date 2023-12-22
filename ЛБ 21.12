@@ -1,0 +1,51 @@
+namespace Лабораторки._21._12
+{
+    public class Animals
+    {
+        public string Name { get; set; }
+        public int Year_Of_Birth { get; set; }
+        public Animals(string n, int y ) { Name = n; Year_Of_Birth = y; }
+    }
+
+    public class Dog : Animals
+    {
+        public string Poroda { get; set; }
+        public string Color { get; set; }
+        public Dog(string n, int y, string b, string c) : base(n, y) { Poroda = b; Color = c; }
+        public void Info() { Console.WriteLine($"Имя: " + Name + "\n Год рождения: " + Year_Of_Birth + "\n Порода: " + Poroda + "\n Окрас: " + Color); }
+        public void Selection(Dog i, string c) { if (i.Poroda == c) { i.Info(); } }
+
+    }
+
+    public class Cat : Animals
+    {
+        public string Poroda { get; set; }
+        public string Color { get; set; }
+        public Cat(string n, int y, string b, string c) : base(n, y) { Poroda = b; Color = c; }
+        public void Info() { Console.WriteLine($"Имя: " + Name + "\n Год рождения: " + Year_Of_Birth + "\n Порода: " + Poroda + "\n Окрас: " + Color); }
+        public void Selection(Cat i, string c) { if (i.Color == c) { i.Info(); } }
+        public void Swap(Cat i, string a) { i.Poroda = a; }
+    }
+
+
+    internal class Program
+    {
+        static void Main()
+        {
+            Dog[] Dogs = new Dog[Convert.ToInt32(Console.ReadLine())];
+            for (int i = 0; i < Dogs.Length; i++) { string n = Console.ReadLine(); int y = int.Parse(Console.ReadLine()); string b = Console.ReadLine(); string c = Console.ReadLine(); Dogs[i] = new Dog(n, y, b, c); }
+            Cat[] Cats = new Cat[Convert.ToInt32(Console.ReadLine())];
+            for (int i = 0; i < Cats.Length; i++) { string n = Console.ReadLine(); int y = int.Parse(Console.ReadLine()); string b = Console.ReadLine(); string c = Console.ReadLine(); Cats[i] = new Cat(n, y, b, c); }
+            string Selection_Poroda_Dogs = Console.ReadLine();
+            string Selection_Color_Cats = Console.ReadLine();
+            string Poroda_Cat_Before = Console.ReadLine();
+            string Poroda_Cat_After = Console.ReadLine();
+            foreach (Cat c in Cats) { c.Selection(c, Selection_Color_Cats); }
+            foreach (Dog d in Dogs) { d.Selection(d, Selection_Poroda_Dogs); }
+            foreach (Cat c in Cats) { if (c.Poroda == Poroda_Cat_Before) { c.Swap(c, Poroda_Cat_After); } }
+
+
+        }   
+
+    }
+}
