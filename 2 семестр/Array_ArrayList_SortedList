@@ -1,0 +1,214 @@
+namespace First1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Array//
+            int[] massiv1 = { 1, 2, 3, 4, 5, 6 };
+            double[] massiv2 = {1.1, 2.2, 3.3, 4.4, 5.5, 6.6 };
+
+            //Count
+            Console.WriteLine(massiv1.Count());
+
+            //BinSearch
+            double index = Array.BinarySearch(massiv2 , 1.1);
+            Console.WriteLine(index);
+
+            //Copy
+            Array.Copy(massiv1, massiv2, 2);
+            for (int i = 0; i < massiv1.Length; i++)
+            {
+                Console.Write($"{massiv1[i]}\t");
+            }
+            Console.WriteLine();
+            for (int i = 0;i < massiv2.Length; i++)
+            {
+                Console.Write($"{massiv2[i]}\t");
+            }
+            Console.WriteLine() ;
+
+            //Find
+            int index1 = Array.Find(massiv1, i => i == 1);
+            if (index1 == 0)
+            {
+                Console.WriteLine("Такого элемента нет") ;
+            }
+            else
+            {
+                Console.WriteLine(index1);
+            }
+
+            //FindLast
+            int index2 = Array.FindLast(massiv1, i => i == 1);
+            if (index2 == 0)
+            {
+                Console.WriteLine("Такого элемента нет");
+            }
+            else
+            {
+                Console.WriteLine(index2);
+            }
+
+            //IndexOf
+            int index3 = Array.IndexOf(massiv1, 1);
+            if (index3 < 0)
+            {
+                Console.WriteLine("Такого элемента нет");
+            }
+            else
+            {
+                Console.WriteLine(index3);
+            }
+
+            //Reverse
+            Array.Reverse(massiv1);
+            for (int i = 0; i < massiv1.Length; i++)
+            {
+                Console.Write($"{massiv1[i]}\t");
+            }
+            Console.WriteLine();
+
+            //Resize
+            Array.Resize(ref massiv1, massiv1.Length + 3);
+            for (int i = 0; i < massiv1.Length; i++)
+            {
+                Console.Write($"{massiv1[i]}\t");
+            }
+            Console.WriteLine();
+
+            //Sort
+            Array.Sort(massiv1);
+            for (int i = 0; i < massiv1.Length; i++)
+            {
+                Console.Write($"{massiv1[i]}\t");
+            }
+            Console.WriteLine(); Console.WriteLine(); Console.WriteLine();
+
+
+
+            //ArrayList//
+            ArrayList people = new ArrayList();
+            for (int i = 0; i <= 4; i++)
+            {
+                people.Add(i);
+            }
+                
+            //Count
+            int a = people.Count;
+            Console.WriteLine( a );
+
+            //FindMyObject
+            Object poisk = Convert.ToInt32(Console.ReadLine());
+            FindMyObject (people, poisk);
+
+            //IndexOf
+            Object poisk1 = Convert.ToInt32(Console.ReadLine());
+            IndexOf(people, poisk1);
+
+            //Copy
+            int[] ints = new int[10];
+            for (int i = 0;i < people.Count;i++)
+            {
+                ints[i] = i*2;
+            }
+            people.CopyTo (ints, 5);
+            for (int i = 0;i < ints.Length; i++)
+            {
+                Console.Write(ints[i]);
+            }
+            Console.WriteLine ();
+
+            //Insert
+            people.Insert(0, people[0]);
+            for (int i = 0; i < people.Count; i++)
+            {
+                Console.Write(people[i]);
+            }
+            Console.WriteLine () ;
+
+            //Reverse
+            people.Reverse ();
+            for (int i = 0; i < people.Count; i++)
+            {
+                Console.Write(people[i]);
+            }
+            Console.WriteLine();
+
+            //Sort
+            people.Sort ();
+            for (int i = 0; i < people.Count; i++)
+            {
+                Console.Write(people[i]);
+            }
+            Console.WriteLine();
+
+            //Add
+            people.Add(people[2]);
+            for (int i = 0; i < people.Count; i++)
+            {
+                Console.Write(people[i]);
+            }
+            Console.WriteLine();
+
+
+            //SortedList//
+            SortedList mySL = new SortedList();
+
+            //Add
+            mySL.Add("M", ")");
+            mySL.Add("T", "!");
+            mySL.Add("Second", "World");
+            mySL.Add("First", "Hello");
+
+            //IndexOfValue
+            Console.Write("Введите искомое значение: ");
+            string z = Console.ReadLine ();
+            if (mySL.IndexOfValue(z) >= 0)
+            {
+                Console.WriteLine("Индекс значения: " + mySL.IndexOfValue(z));
+            }
+            else
+            {
+                Console.WriteLine("Такого значения нет");
+            }
+
+            //IndexOfKey
+            Console.Write("Введите искомый ключ: ");
+            string z1 = Console.ReadLine ();
+            if (mySL.IndexOfKey(z1) >= 0)
+            {
+                Console.WriteLine("Индекс ключа: " + mySL.IndexOfKey(z1));
+            }
+            else
+            {
+                Console.WriteLine("Такого ключа нет");
+            }
+
+            //GetKey u GetByIndex
+            for (int i = 0; i < mySL.Count; i++)
+            {
+                Console.WriteLine("{0}:\t{1}", mySL.GetKey(i), mySL.GetByIndex(i));
+            }
+        }
+
+
+        public static void FindMyObject(ArrayList myList, Object myObject)
+        {
+            int myIndex = myList.BinarySearch(myObject);
+            if (myIndex < 0)
+                Console.WriteLine("Элемента {0} нет", myObject);
+            else
+                Console.WriteLine("Элемент {0} имеет индекс {1}", myObject, myIndex);
+        }
+
+        public static void IndexOf (ArrayList myList, object myObject)
+        {
+            int myIndex = myList.IndexOf(myObject);
+            if (myIndex < 0)
+                Console.WriteLine("Элемента {0} нет", myObject);
+            else
+                Console.WriteLine("Элемент {0} имеет индекс {1}", myObject, myIndex);
+        }
+    }
+}
