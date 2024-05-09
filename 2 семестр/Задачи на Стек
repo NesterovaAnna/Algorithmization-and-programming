@@ -1,0 +1,128 @@
+namespace Stack
+{
+    internal class Program
+    {
+        
+
+
+        static void Main(string[] args)
+        {
+            //1 задача
+            Stack <char> st = new Stack <char>();
+            Console.Write("Введите выражение: ");
+            string z = Console.ReadLine();
+
+            foreach (char c in z)
+            {
+                if (c != '(' && c != ')' && c != '{' && c != '}' && c != '[' && c != ']') 
+                {
+                    z = z.Replace(c, Convert.ToChar(" ")); //заменяем все символы кроме скобок на пробелы
+                }
+
+            }
+            
+            string x = z?.Replace(" ", ""); //убираем пробелы в строке
+            if (x.Count() == 0)
+            {
+                Console.WriteLine("Выражение не содержит скобок"); 
+            }
+            else
+            {
+                Console.WriteLine("Все скобки в выражении: {0} ", x);
+                foreach (char c in x)
+                {
+                    if (c == '(' || c == '{' || c == '[')
+                    {
+                        st.Push(c);
+                    }
+                    else if (c == ')' && (st.Count == 0 || st.Pop() != '('))
+                    {
+                        Console.WriteLine("Имеется неправильное расположение скобок");
+                    }
+                    else if (c == '}' && (st.Count == 0 || st.Pop() != '{'))
+                    {
+                        Console.WriteLine("Имеется неправильное расположение скобок");
+                    }
+                    else if (c == ']' && (st.Count == 0 || st.Pop() != '['))
+                    {
+                        Console.WriteLine("Имеется неправильное расположение скобок");
+                    }
+
+                }
+                if (st.Count == 0)
+                {
+                    Console.WriteLine("Ошибок нет");
+                }
+                else
+                {
+                    Console.WriteLine("Имеется неправильное расположение скобок");
+                }
+            }
+            
+            
+            
+
+
+
+
+
+            //2 задача 
+            Stack<int> st1 = new Stack<int>();
+            Console.Write("Введите обратную польскую запись: ");
+            string[] u = Convert.ToString(Console.ReadLine()).Split();
+
+            foreach (string c in u)
+            {
+                if (c != "+" && c != "-" && c != "*" && c != "/")
+                {
+                    st1.Push(Convert.ToInt32(c));
+                }
+                else if (st1.Count == 0)
+                {
+                    Console.WriteLine("Неправильная запись"); return;
+                }
+                else if (c=="+")
+                {
+                    int r = Convert.ToInt32(st1.Pop());
+                    int g = Convert.ToInt32(st1.Pop());
+                    int b = Convert.ToInt32(r+g);
+                    st1.Push(b);
+                }
+                else if (c == "-")
+                {
+                    int r = Convert.ToInt32(st1.Pop());
+                    int g = Convert.ToInt32(st1.Pop());
+                    int b = Convert.ToInt32(g - r);
+                    st1.Push(b);
+                }
+                else if (c == "*")
+                {
+                    int r = Convert.ToInt32(st1.Pop());
+                    int g = Convert.ToInt32(st1.Pop());
+                    int b = Convert.ToInt32(r * g);
+                    st1.Push(b);
+                }
+                else if (c == "/")
+                {
+                    int r = Convert.ToInt32(st1.Pop());
+                    int g = Convert.ToInt32(st1.Pop());
+                    int b = Convert.ToInt32(g / r);
+                    st1.Push(b);
+                }
+                
+            }
+            if (st1.Count == 1)
+            {
+                int s = Convert.ToInt32(st1.Pop());
+                Console.WriteLine(s);
+            }
+            else
+            {
+                Console.WriteLine("Неправильная запись");
+            }
+        }
+
+
+    }
+
+}
