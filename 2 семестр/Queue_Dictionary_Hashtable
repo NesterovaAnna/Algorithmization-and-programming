@@ -1,0 +1,139 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Телефонные_разговоры
+{
+    public class Data
+    {
+        public int Nomer { get; set; }
+        public int Date { get; set; }
+        public int Start { get; set; }
+        public int Kol_vo { get; set; }
+
+        public Data (int nomer, int date, int start, int kol_vo)
+        {
+            Nomer = nomer;
+            Date = date;
+            Start = start;
+            Kol_vo = kol_vo;
+        }
+    }
+
+    
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            Queue<Data> queue = new Queue<Data>();
+            Console.WriteLine("Введите данные телефонных разговоров (для завершения end):");
+            while (true)
+            {
+                string[] strings = Console.ReadLine().Split(' ');
+                if (strings[0] == "end") { break; }
+                int n = int.Parse(strings[0]);
+                int d = int.Parse(strings[1]);
+                int st = int.Parse(strings[2]);
+                int k = int.Parse(strings[3]);
+
+                queue.Enqueue(new Data(n, d, st, k));
+                
+            }
+
+            Console.WriteLine("Задача 1: общая сумма минут каждого номера");
+            
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            foreach(Data data in queue)
+            {
+                if (dic.ContainsKey(data.Nomer))
+                {
+                    int value = (int)dic[data.Nomer];
+                    dic[data.Nomer] = value + data.Kol_vo;
+                }
+                else
+                {
+                    dic.Add(data.Nomer, data.Kol_vo);
+                }
+            }
+            ICollection co = dic.Keys;
+            Console.WriteLine("Вывод с помощью словаря:");
+            foreach (int k in co)
+            {
+                Console.WriteLine("Номер телефона " + k + ": " + dic[k] + " мин");
+            }
+
+            Hashtable hash = new Hashtable();
+            foreach (Data data in queue)
+            {
+                if (hash.Contains(data.Nomer))
+                {
+                    int value = (int)hash[data.Nomer];
+                    hash[data.Nomer] = value + data.Kol_vo;
+                }
+                else
+                {
+                    hash.Add(data.Nomer, data.Kol_vo);
+                }
+            }
+            ICollection c = hash.Keys;
+            Console.WriteLine("Вывод с помощью хэштаблицы:");
+            foreach (int Key in c)
+            {
+                Console.WriteLine("Номер телефона " + Key + ": " + hash[Key] + " мин");
+            }
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("Задача 2: общая сумма минут за каждую дату");
+            
+            Dictionary<int, int> dic2 = new Dictionary<int, int>();
+            foreach (Data data in queue)
+            {
+                if (dic2.ContainsKey(data.Date))
+                {
+                    int value = (int)dic2[data.Date];
+                    dic2[data.Date] = value + data.Kol_vo;
+                }
+                else
+                {
+                    dic2.Add(data.Date, data.Kol_vo);
+                }
+            }
+            ICollection co2 = dic2.Keys;
+            Console.WriteLine("Вывод с помощью словаря:");
+            foreach (int k in co2)
+            {
+                Console.WriteLine("Дата " + k + ": " + dic2[k] + " мин");
+            }
+
+            Hashtable hash2 = new Hashtable();
+            foreach (Data data in queue)
+            {
+                if (hash2.Contains(data.Date))
+                {
+                    int value = (int)hash2[data.Date];
+                    hash2[data.Date] = value + data.Kol_vo;
+                }
+                else
+                {
+                    hash2.Add(data.Date, data.Kol_vo);
+                }
+            }
+            ICollection c2 = hash2.Keys;
+            Console.WriteLine("Вывод с помощью хэштаблицы:");
+            foreach (int Key in c2)
+            {
+                Console.WriteLine("Дата " + Key + ": " + hash2[Key] + " мин");
+
+            }
+
+        }
+
+    }
+
+}
