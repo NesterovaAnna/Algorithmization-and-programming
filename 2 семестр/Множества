@@ -1,0 +1,123 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Множества
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //1)
+            HashSet<char> setA = new HashSet<char>();
+            HashSet<char> setB = new HashSet<char>();
+            HashSet<char> setC = new HashSet<char>();
+            Console.Write("Введите содержимое множества А: ");
+            string[] sA = Console.ReadLine().Split();
+            foreach (string s in sA)
+            {
+                setA.Add(Convert.ToChar(s));
+            }
+            Console.Write("Введите содержимое множества В: ");
+            string[] sB = Console.ReadLine().Split();
+            foreach (string s in sB)
+            {
+                setB.Add(Convert.ToChar(s));
+            }
+            Console.Write("Введите содержимое множества С: ");
+            string[] sC = Console.ReadLine().Split();
+            foreach (string s in sC)
+            {
+                setC.Add(Convert.ToChar(s));
+            }
+
+
+            HashSet<char> obed1 = new HashSet<char>(setA);
+            obed1.UnionWith(setB);
+            Console.Write("Объединение множества А с множеством В: ");
+            foreach (char c in obed1)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> obed2 = new HashSet<char>(setA);
+            obed2.UnionWith(setC);
+            Console.Write("Объединение множества А с множеством С: ");
+            foreach (char c in obed2)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> obed3 = new HashSet<char>(setB);
+            obed3.UnionWith(setC);
+            Console.Write("Объединение множества В с множеством С: ");
+            foreach (char c in obed3)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> peres1 = new HashSet<char>(setA);
+            peres1.IntersectWith(setB);
+            Console.Write("Пересечение множества А с множеством В: ");
+            foreach (char c in peres1)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> peres2 = new HashSet<char>(setA);
+            peres2.IntersectWith(setC);
+            Console.Write("Пересечение множества А с множеством С: ");
+            foreach (char c in peres2)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> peres3 = new HashSet<char>(setB);
+            peres3.IntersectWith(setC);
+            Console.Write("Пересечение множества В с множеством С: ");
+            foreach (char c in peres3)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> chars = new HashSet<char>(setA);
+            chars.UnionWith(setB);
+            chars.UnionWith(setC);
+
+            HashSet<char> dop1 = new HashSet<char>(setA);
+            dop1.SymmetricExceptWith(chars);
+            Console.Write("Дополнение множества А: ");
+            foreach (char c in dop1)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> dop2 = new HashSet<char>(setB);
+            dop2.SymmetricExceptWith(chars);
+            Console.Write("Дополнение множества В: ");
+            foreach (char c in dop2)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+
+            HashSet<char> dop3 = new HashSet<char>(setC);
+            dop3.SymmetricExceptWith(chars);
+            Console.Write("Дополнение множества С: ");
+            foreach (char c in dop3)
+            {
+                Console.Write(c + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
