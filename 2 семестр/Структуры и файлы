@@ -1,0 +1,77 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Структуры_и_файлы
+{
+    public class Data
+    {
+        public int Year { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public Data(int y, string cit, string con)
+        {
+            Year = y;
+            City = cit;
+            Country = con;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] s = File.ReadAllLines("data.txt");
+            Queue<Data> q = new Queue<Data>();
+            foreach (string str in  s)
+            {
+                    string[] strings = str.Split(',');
+                    int y = int.Parse(strings[0]);
+                    string cit = strings[1];
+                    string con = strings[2];
+
+                    q.Enqueue(new Data(y, cit, con));
+            }
+
+            var groupByYear = q.GroupBy(p => p.Year);
+            Queue<string> File_1 = new Queue<string>();
+            foreach (var group in groupByYear)
+            {
+                foreach(Data data in group)
+                {
+                    File_1.Enqueue(data.Year.ToString() + data.City + data.Country);
+                }
+            }
+            File.WriteAllLines(@"D:\File_1.txt", File_1);
+
+            var groupByCity = q.GroupBy(p => p.City);
+            Queue<string> File_2 = new Queue<string>();
+            foreach (var group in groupByCity)
+            {
+                foreach (Data data in group)
+                {
+                    File_2.Enqueue(data.Year.ToString() + data.City + data.Country);
+                }
+            }
+            File.WriteAllLines(@"D:\File_2.txt", File_2);
+
+            var groupByCountry = q.GroupBy(p => p.City);
+            Queue<string> File_3 = new Queue<string>();
+            Console.WriteLine("Введите страну для вывода данных:");
+            string country = Console.ReadLine();
+            foreach (var group in groupByCountry)
+            {
+                foreach (Data data in group)
+                {
+                    if (data.Country == country)
+                    {
+                        File_3.Enqueue(data.Year.ToString() + data.City + data.Country);
+                    }   
+                }
+            }
+            File.WriteAllLines(@"D:\File_3.txt", File_3);
+        }
+    }
+}
