@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Файл_подпоследовательность
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] lines = File.ReadAllLines("input.txt");
+            int min_cnt_a = lines[0].Length;
+            string line = lines[0];
+            foreach (string l in lines)
+            {
+                int cnt_a = 0;
+                foreach (char c in l)
+                {
+                    if (c == 'a') { cnt_a++; }
+                    else 
+                    { 
+                        if (cnt_a < min_cnt_a && cnt_a != 0) 
+                        { 
+                            line = l; min_cnt_a = cnt_a; cnt_a = 0; 
+                        } 
+                    }
+                }
+                if (cnt_a < min_cnt_a && cnt_a != 0) 
+                { 
+                    line = l; min_cnt_a = cnt_a; cnt_a = 0; 
+                }
+            }
+            Console.WriteLine(line);
+        }
+    }
+}
