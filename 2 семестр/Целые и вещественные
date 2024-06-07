@@ -1,0 +1,116 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Целые_и_вещественные
+{
+    class Calculator<T>
+    {
+        public T chislo1;
+        public T chislo2;
+        public Calculator(T var1, T var2)
+        {
+            chislo1 = var1;
+            chislo2 = var2;
+        }
+        public void Sum()
+        {
+            dynamic result = (dynamic)chislo1 + (dynamic)chislo2;
+            Console.WriteLine("Сумма: " + result);
+        }
+        public void Raznost()
+        {
+            dynamic result = (dynamic)chislo1 - (dynamic)chislo2;
+            Console.WriteLine("Разность: " + result);
+        }
+        public void Ymnogenie()
+        {
+            dynamic result = (dynamic)chislo1 * (dynamic)chislo2;
+            Console.WriteLine("Произведение: " + result);
+        }
+        public void Delenie()
+        {
+            if (Convert.ToDouble(chislo2) == 0)
+            {
+                Console.WriteLine("Деление на ноль невозможно");
+            }
+            else
+            {
+                dynamic result = (dynamic)chislo1 / (dynamic)chislo2;
+                Console.WriteLine("Результат деления: " + result);
+            }
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            void Menu()
+            {
+                Console.Write("Меню:\n1) Работа с целыми;\n2) Работа с вещественными;\n3) Выход\nВведите действие: ");
+                switch (int.Parse(Console.ReadLine()))
+                {
+                    case 1:
+                        Console.WriteLine();
+                        Console.WriteLine("Введите два целых числа:");
+                        int numi1 = Convert.ToInt32(Console.ReadLine());
+                        int numi2 = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine();
+                        Calculator<int> intCalculator = new Calculator<int>(numi1, numi2);
+                        Console.Write("Операции:\n1) Сумма;\n2) Разность;\n3) Произведение;\n4) Деление;\nВведите действие: ");
+                        switch (int.Parse(Console.ReadLine()))
+                        {
+                            case 1:
+                                intCalculator.Sum();
+                                break;
+                            case 2:
+                                intCalculator.Raznost();
+                                break;
+                            case 3:
+                                intCalculator.Ymnogenie();
+                                break;
+                            case 4:
+                                intCalculator.Delenie();
+                                break;
+                        }
+                        Console.WriteLine();
+                        break;
+                    case 2:
+                        Console.WriteLine();
+                        Console.WriteLine("Введите два вещественных числа:");
+                        double numd1 = Convert.ToDouble(Console.ReadLine());
+                        double numd2 = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine();
+                        Calculator<double> doubleCalculator = new Calculator<double>(numd1, numd2);
+                        Console.Write("Операции:\n1) Сумма;\n2) Разность;\n3) Произведение;\n4) Деление;\nВведите действие: ");
+                        switch (int.Parse(Console.ReadLine()))
+                        {
+                            case 1:
+                                doubleCalculator.Sum();
+                                break;
+                            case 2:
+                                doubleCalculator.Raznost();
+                                break;
+                            case 3:
+                                doubleCalculator.Ymnogenie();
+                                break;
+                            case 4:
+                                doubleCalculator.Delenie();
+                                break;
+                        }
+                        Console.WriteLine();
+                        break;
+                    case 3:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+            while (true)
+            {
+                Menu();
+            }
+        }
+    }
+}
