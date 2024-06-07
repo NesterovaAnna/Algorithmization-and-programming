@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Склады_компаний
+{
+    internal class Program
+    {
+        class Warehouse
+        {
+            public int Article { get; set; }
+            public string Names { get; set; }
+            public string Category { get; set; }
+            public int Quantity { get; set; } //кол-во
+            public int Price { get; set; }
+            public string Place { get; set; }
+        }
+        static void Main(string[] args)
+        {
+            List<Warehouse> warehouses = new List<Warehouse>
+        {
+        new Warehouse {Article = 1, Names = "Apple", Category = "Fruit",  Quantity = 20, Price = 10, Place = "One"},
+        new Warehouse { Article = 2, Names = "Chicken", Category = "Meat", Quantity = 10, Price = 50, Place = "Two" },
+        new Warehouse { Article = 3, Names = "Banana", Category = "Fruit", Quantity = 15, Price = 15, Place = "One" },
+        new Warehouse { Article = 4, Names = "Pig", Category = "Meat", Quantity = 5, Price = 60, Place = "Two" },
+        new Warehouse { Article = 5, Names = "Beef", Category = "Meat", Quantity = 3, Price = 80, Place = "Two" },
+        new Warehouse { Article = 1, Names = "Tomato", Category = "Vegetables", Quantity = 25, Price = 10, Place = "Three" },
+        new Warehouse { Article = 1, Names = "Cucumber", Category = "Vegetables", Quantity = 25, Price = 10, Place = "Three" },
+        new Warehouse { Article = 1, Names = "Pepper", Category = "Vegetables", Quantity = 25, Price = 20, Place = "Three" }
+        };
+
+            // 1) Объем товара в денежном эквиваленте на каждом складе
+            var volumeByPlace = warehouses.GroupBy(x => x.Place).
+                Select(g => new
+                {
+                    Place = g.Key,
+                    chet = g.Sum(w => w.Quantity * w.Price)
+                });
+            Console.WriteLine("Объем товара в денежном эквиваленте на каждом складе:");
+            foreach (var volume in volumeByPlace)
+            {
+                Console.WriteLine($"{volume.Place}\t: {volume.chet}");
+            }
+            Console.WriteLine();
+            // 2) Максимальная цена товара по каждой категории для каждого склада
+            var maxPriceByPlace = warehouses.GroupBy(x => new
+            {
+                x.Category,
+                x.Place
+            }).Select(g => new
+            {
+                Category = g.Key.Category,
+                Place = g.Key.Place,
+                maxPrice = g.Max(i => i.Price)
+            });
+            Console.WriteLine("Максимальная цена товара по каждой категории для каждого склада:");
+            foreach (var price in maxPriceByPlace)
+            {
+                Console.WriteLine($"{price.Place}\t: {price.Category}\t {price.maxPrice}");
+            }
+            Console.WriteLine();
+            // 3) Средняя цена товаров для каждой категории
+            var averagePrice = warehouses.GroupBy(x => x.Category).
+                Select(g => new
+                {
+                    Category = g.Key,
+                    res = g.Average(i => i.Price)
+                });
+            Console.WriteLine("Средняя цена товаров для каждой категории:");
+            foreach (var price in averagePrice)
+            {
+                Console.WriteLine($"{price.Category}\t: {price.res}");
+            }
+            Console.WriteLine();
+            // 4) Самый дешевый товар по каждому складу
+            var minPrice = warehouses.GroupBy(x => x.Place).
+                Select(g => new
+                {
+                    Place = g.Key,
+                    res = g.OrderBy(i => i.Price).First(),
+                });
+            Console.WriteLine("Самый дешевый товар по каждому складу:");
+            foreach (var price in minPrice)
+            {
+                Console.WriteLine($"{price.Place}\t: {price.res.Names}\t, price: {price.res.Price}");
+            }
+            Console.WriteLine();
+            // 5) Общее количество товаров по категории для каждого склада
+            var volumeQuantity = warehouses.GroupBy(x => new
+            {
+                x.Category,
+                x.Place
+            }).Select(g => new
+            {
+                Category = g.Key.Category,
+                Place = g.Key.Place,
+                sum = g.Sum(i => i.Quantity)
+            });
+            Console.WriteLine("Общее количество товаров по категории для каждого склада:");
+            foreach (var i in volumeQuantity)
+            {
+                Console.WriteLine($"{i.Place}\t: {i.Category}\t, quantity: {i.sum}");
+            }
+        }
+    }
+}
