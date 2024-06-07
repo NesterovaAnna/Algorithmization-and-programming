@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LINQ_массив
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = new List<int> { 123, 456, 784, 321, 659, 987 };
+
+            Console.WriteLine("Task 1");
+
+            var _3 = numbers.Where(n => n % 10 % 3 == 0);
+            Console.WriteLine();
+            Console.WriteLine("Элементы, у которых последняя цифра кратна 3:");
+            foreach (var number in _3)
+            {
+                Console.WriteLine(number);
+            }
+
+            var _chet = numbers.Where(n => n.ToString().Any(c => c % 2 == 0));
+            Console.WriteLine();
+            Console.WriteLine("Элементы, у которых в записи присутствует хотя бы одна четная цифра:");
+            foreach (var number in _chet)
+            {
+                Console.WriteLine(number);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Task 2");
+            Console.WriteLine();
+            var chetNumbers = numbers.Where(x => x % 2 == 0);
+            var replacedNumbers = chetNumbers.Select((x, index) => index % 2 == 1 ? 2 : x).ToArray();
+            var res = replacedNumbers.Where(x => x % 2 == 0);
+            foreach (var number in res) Console.WriteLine(number);
+        }
+    }
+}
