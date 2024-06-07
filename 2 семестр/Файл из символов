@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Файл_из_символов
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            SortedDictionary<char, int> symbols = new SortedDictionary<char, int>();
+            StreamReader file = new StreamReader("file_name.txt");
+            string line = file.ReadLine();
+            while (line != null)
+            {
+                foreach (char i in line)
+                {
+                    if (!symbols.ContainsKey(i)) 
+                    { 
+                        symbols[i] = 1; 
+                    }
+                    else 
+                    { 
+                        symbols[i]++; 
+                    }
+                }
+                line = file.ReadLine();
+            }
+            Console.WriteLine("Самый частвый символ:");
+            foreach (char i in symbols.Keys) 
+            { 
+                if (symbols[i] == symbols.Values.Max()) 
+                { 
+                    Console.WriteLine(i); 
+                } 
+            }
+            Console.WriteLine($"Количество уникальных символов: {symbols.Count}");
+            Console.WriteLine("Отсортированный список всех символов:");
+            foreach (char i in symbols.Keys) 
+            { 
+                Console.WriteLine(i); 
+            }
+        }
+    }
+}
